@@ -1,12 +1,23 @@
 import React, {Component} from 'react';
-import logo from './logo.svg';
 import './App.css';
+import * as BooksAPI from "./utils/BooksAPI";
 
 class App extends Component {
+  state = {
+    books: []
+  }
+
+  componentDidMount() {
+    BooksAPI.getAll().then((books) => {
+      this.setState({books})
+      console.dir(books);
+    })
+  }
+
   render() {
     return (<div className="app">
       <h1>
-        <i class="far fa-sun fa-pulse"
+        <i className="far fa-sun fa-pulse"
           // data-fa-transform="down-3"
           style={{
             fontSize: '2em',
@@ -16,11 +27,19 @@ class App extends Component {
             top: '10px',
             color: 'Tomato'
           }}></i>
-        Good Morning Reeds
-        <i class="fas fa-book" style={{
+        Good Morning <i className="fas fa-book" style={{
             color: 'ForestGreen'
-          }}></i>!
+          }}></i>Reeds!
       </h1>
+      <div className="booksList">
+        <ol>{
+            this.state.books.map(book => (<li key={book.id}>
+              <img src={book.imageLinks.smallThumbnail} alt=""/>
+              <h3>{book.title}</h3>
+              <h5>{book.authors[0]}</h5>
+            </li>))
+          }</ol>
+      </div>
     </div>);
   }
 }
