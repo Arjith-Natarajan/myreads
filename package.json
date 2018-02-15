@@ -1,0 +1,32 @@
+{
+  "name": "myreads",
+  "version": "0.0.0",
+  "description": "book reading list app",
+  "private": true,
+  "main": "index.js",
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Arjith-Natarajan/myreads.git"
+  },
+  "dependencies": {
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "react-router-dom": "^4.2.2",
+    "react-scripts": "1.1.1"
+  },
+  "keywords": [
+    "react"
+  ],
+  "author": "arjith-natarajan",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Arjith-Natarajan/myreads/issues"
+  },
+  "homepage": "https://github.com/Arjith-Natarajan/myreads#readme"
+}
