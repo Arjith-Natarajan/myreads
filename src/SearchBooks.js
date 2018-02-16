@@ -8,7 +8,7 @@ class SearchBooks extends Component {
   };
   componentDidMount() {
     // hardcoded search quer string from SEARCH_TERMS.md
-    search("Android").then(results => {
+    search("Finance").then(results => {
       // this.setState({searchResults});
       this.setState(() => ({searchResults: results}));
       // this.setState({books});
