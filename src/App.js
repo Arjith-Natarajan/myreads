@@ -1,10 +1,9 @@
 import React, {Component} from "react";
-import {Route} from "react-router-dom";
+import {Route, Link} from "react-router-dom";
 import "./App.css";
-import ListShelves from "./ListShelves"
-import SearchBooks from "./SearchBooks"
+import ListShelves from "./ListShelves";
+import SearchBooks from "./SearchBooks";
 import * as BooksAPI from "./utils/BooksAPI";
-
 
 // top-level class component that renders any
 // one of the child component based on path/URL
@@ -25,8 +24,28 @@ class App extends Component {
 
   render() {
     return (<div className="app">
-      <Route exact='true' path="/" render={() => <ListShelves books={this.state.books}/>}/>
-      <Route path="/search" render={({history}) => (<SearchBooks/>)}/>
+      {" "}
+      <h1>
+        <Link to="/">
+          <i className="far fa-sun fa-pulse"
+            // data-fa-transform="down-3"
+            style={{
+              fontSize: "2em",
+              paddingLeft: "10px",
+              paddingRight: "10px",
+              position: "relative",
+              top: "10px",
+              color: "Tomato"
+            }}/>
+        </Link>{" "}
+        Good Morning{" "}
+        <i className="fas fa-book" style={{
+            color: "ForestGreen"
+          }}/>Reeds!
+      </h1>
+
+      <Route exact="true" path="/" render={() => <ListShelves books={this.state.books}/>}/>
+      <Route path="/search" render={({history}) => <SearchBooks mybooksList={this.state.books}/>}/>
     </div>);
   }
 }
