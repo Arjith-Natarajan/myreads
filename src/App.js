@@ -1,45 +1,26 @@
-import React, {Component} from 'react';
-import './App.css';
+import React, {Component} from "react";
+import "./App.css";
+import {Route} from "react-router-dom";
+import ListShelves from "./ListShelves"
+import SearchBooks from "./SearchBooks"
 import * as BooksAPI from "./utils/BooksAPI";
 
 class App extends Component {
   state = {
     books: []
-  }
+  };
 
   componentDidMount() {
-    BooksAPI.getAll().then((books) => {
-      this.setState({books})
+    BooksAPI.getAll().then(books => {
+      this.setState({books});
       console.dir(books);
-    })
+    });
   }
 
   render() {
     return (<div className="app">
-      <h1>
-        <i className="far fa-sun fa-pulse"
-          // data-fa-transform="down-3"
-          style={{
-            fontSize: '2em',
-            paddingLeft: '10px',
-            paddingRight: '10px',
-            position: 'relative',
-            top: '10px',
-            color: 'Tomato'
-          }}></i>
-        Good Morning <i className="fas fa-book" style={{
-            color: 'ForestGreen'
-          }}></i>Reeds!
-      </h1>
-      <div className="booksList">
-        <ol>{
-            this.state.books.map(book => (<li key={book.id}>
-              <img src={book.imageLinks.smallThumbnail} alt=""/>
-              <h3>{book.title}</h3>
-              <h5>{book.authors[0]}</h5>
-            </li>))
-          }</ol>
-      </div>
+      <Route exact="exact" path="/" render={() => <ListShelves books={this.state.books}/>}/>
+      <Route path="/search" render={({history}) => (<SearchBooks books={this.state.books} />)}/>
     </div>);
   }
 }
