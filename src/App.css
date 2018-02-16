@@ -8,6 +8,18 @@ body, .app {
   background: white;
 }
 
+.darkGray {
+  color: 'DarkGray'
+}
+
+.tomato {
+  color: 'Tomato'
+}
+
+.forestGreen {
+  color: 'ForestGreen'
+}
+
 /* main page */
 
 .list-books-title {

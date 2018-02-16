@@ -44,7 +44,7 @@ class App extends Component {
           }}/>Reeds!
       </h1>
 
-      <Route exact="true" path="/" render={() => <ListShelves books={this.state.books}/>}/>
+      <Route exact path="/" render={() => <ListShelves books={this.state.books}/>}/>
       <Route path="/search" render={({history}) => <SearchBooks mybooksList={this.state.books}/>}/>
     </div>);
   }
