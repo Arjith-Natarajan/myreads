@@ -1,8 +1,7 @@
 import React, {Component} from "react";
-
+import {Link} from "react-router-dom";
 function ListShelves(props) {
   return (<div>
-    {" "}
     <h1>
       <i className="far fa-sun fa-pulse"
         // data-fa-transform="down-3"
@@ -19,6 +18,11 @@ function ListShelves(props) {
           color: "ForestGreen"
         }}/>Reeds!
     </h1>
+    <Link to="/search">
+      <i className="fas fa-plus" style={{
+          color: "SeaBlue"
+        }}/>
+    </Link>
     <div className="booksList">
       <ol>
         {
