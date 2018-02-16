@@ -29,7 +29,11 @@ function ListShelves(props) {
           props.books.map(book => (<li key={book.id}>
             <img src={book.imageLinks.smallThumbnail} alt=""/>
             <h3>{book.title}</h3>
-            <h5>{book.authors[0]}</h5>
+            {/* <h5>{book.authors[0]}</h5>
+            // NOTE:  not all objects received have author property
+            // this needs to be handled properly to render 
+            */}
+
           </li>))
         }
       </ol>
