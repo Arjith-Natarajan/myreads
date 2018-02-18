@@ -48,33 +48,7 @@ class App extends Component {
 
   render() {
     return (<div className="app">
-      <div className="list-books">
-        <div className="list-books-title">
-          <h1>
-            <Link to="/">
-              <i className="far fa-sun fa-pulse"
-                // data-fa-transform="down-3"
-                style={{
-                  fontSize: "2em",
-                  paddingLeft: "10px",
-                  paddingRight: "10px",
-                  position: "relative",
-                  top: "10px",
-                  color: "Tomato"
-                }}/>
-            </Link>
-            Good Morning
-            <i className="fas fa-book" style={{
-                color: "ForestGreen"
-              }}/>Reeds!
-          </h1>
-        </div>
-        <Route exact path="/" render={() => (<Link to="/search">
-            <div className="open-search">
-              <a href="#">Add some Books</a>
-            </div>
-          </Link>)}/>
-        <Route exact path="/" render={() => (<ListShelves onShelfChange={this.shelfChangeHandler} books={this.state.books}/>)}/></div>{" "}
+      <Route exact="exact" path="/" render={() => (<ListShelves onShelfChange={this.shelfChangeHandler} books={this.state.books}/>)}/>
       <Route path="/search" render={({history}) => (<SearchBooks onShelfChange={this.shelfChangeHandler} mybooksList={this.state.books}/>)}/>
     </div>);
   }

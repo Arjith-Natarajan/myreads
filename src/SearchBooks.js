@@ -1,5 +1,7 @@
 import React, {Component} from "react";
 import {search} from "./utils/BooksAPI";
+import {Link} from "react-router-dom";
+import BrandBar from "./BrandBar";
 import "./App.css";
 
 class SearchBooks extends Component {
@@ -34,6 +36,9 @@ class SearchBooks extends Component {
 
     return (<div className="search-books">
       <div className="search-books-bar">
+        <Link to="/">
+          <a className="close-search">Close</a>
+        </Link>
         <div className="search-books-input-wrapper">
           <form onSubmit={this.querySubmitHandler}>
             <label>
@@ -77,6 +82,9 @@ class SearchBooks extends Component {
               <div className="no-results">No results to show, try some other keywords</div>
             </div>)
         }
+      </div>
+      <div className="footer">
+        <BrandBar/>
       </div>
     </div>);
   }
