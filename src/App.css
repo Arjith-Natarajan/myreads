@@ -83,7 +83,14 @@ body, .app {
 }
 .search-books-input-wrapper {
   flex: 1;
-  background: #e9e;
+  font-weight: 400;
+  background: #fff;
+}
+
+.auto-suggest-item{
+  padding: 12px 0px;
+  list-style: none;
+  color: 'Tomato';
 }
 .search-books-bar input {
   width: 100%;
@@ -195,4 +202,9 @@ width: 100%;
   padding: 20px 10px 0;
   text-align: center;
   font-size: 0.8em;
+}
+
+.links{
+  text-decoration: none;
+  color : inherit;
 }

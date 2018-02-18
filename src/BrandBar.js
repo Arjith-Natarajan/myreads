@@ -1,6 +1,5 @@
 import React from "react";
 import {Link} from "react-router-dom";
-import "./App.css";
 
 const BrandBar = () => (<div className="list-books-title">
   <h1>
@@ -23,7 +22,7 @@ const BrandBar = () => (<div className="list-books-title">
         borderRadius : "5px"
       }}/> Reeds!
   </h1>
-  <h5>Powered by Udacity &copy; Arjith Natarajan 2018</h5>
+  <h5><a className="links" href="https://in.udacity.com/course/react-nanodegree--nd019">Powered by Udacity</a> &copy; <a href="https://github.com/Arjith-Natarajan" className="links">Arjith Natarajan</a> 2018</h5>
 </div>)
 
 export default BrandBar;
