@@ -1,8 +1,10 @@
 # myreads
 MyReads: A Book Tracking App , Udacity React NanoDegree Project!
 
-# Tasks to do
-- Find out about grid structure for lists
-- compoent for book formatteed way
-- Detailed view for each book like kindle localStorage
-- Adding propTypes
+## code Attributions
+Every part of the code in here was completely coded by me, without referring our reaching out to any of the fellow learners.
+
+Only code I would say i have borrowed is from react-autosuggest package:
+Learnt the APIs provided by them and utilised them to my best of knowledge without copy pasting them
+
+https://github.com/moroshko/react-autosuggest#basic-usage

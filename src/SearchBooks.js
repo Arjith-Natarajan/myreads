@@ -65,7 +65,7 @@ class SearchBooks extends Component {
   };
   queryUpdateHandler = newQuery => {
     console.log(newQuery);
-    this.setState({query: newQuery.trim()});
+    this.setState({query: newQuery});
   };
 
   render() {
