@@ -115,6 +115,13 @@ body, .app {
   padding: 80px 10px 20px;
 }
 
+.no-results{
+  margin: auto;
+  color: #8b8b8b;
+  text-align: center;
+  font-size: 20px;
+}
+
 /* books grid */
 
 .books-grid {

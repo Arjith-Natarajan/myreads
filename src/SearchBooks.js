@@ -1,81 +1,84 @@
-import React, { Component } from "react";
-import { search } from "./utils/BooksAPI";
+import React, {Component} from "react";
+import {search} from "./utils/BooksAPI";
+import "./App.css";
 
 class SearchBooks extends Component {
   state = {
     searchResults: [],
-    query : ""
+    query: ""
   };
 
   querySubmitHandler = event => {
     search(this.state.query).then(searchResults => {
-      this.setState({ searchResults });
+      this.setState({searchResults});
       console.dir(searchResults); // to analyse what is being returned in result
     });
     event.preventDefault();
   };
   queryUpdateHandler = newQuery => {
-    this.setState({
-      query: newQuery.trim()
-    });
+    this.setState({query: newQuery.trim()});
   };
 
   render() {
-    const { onShelfChange, mybooksList } = this.props;
-    const { searchResults, query } = this.state;
+    const {onShelfChange, mybooksList} = this.props;
+    const {searchResults, query} = this.state;
 
     // mapping over searchResults to update shelf status
     const processedBooks = searchResults.map(book => {
       const found = mybooksList.find(myBook => myBook.id === book.id);
-      book.shelf = found ? found.shelf : "none";
+      book.shelf = found
+        ? found.shelf
+        : "none";
       return book;
     });
 
-    return (
-      <div>
-        <h2>Search:</h2>
-        <form onSubmit={this.querySubmitHandler}>
-        <label>
-          <input type="text" value={query}  onChange={event => this.queryUpdateHandler(event.target.value)} />
-        </label>
-        <input type="submit" value="Submit" />
-      </form>
-        <div className="booksList">
-        { processedBooks.length >0 ? (
-          <ol>
-            {processedBooks.map(book => (
-              <li key={book.id}>
-                <img src={book.imageLinks.smallThumbnail} alt="" />
-                <h3>{book.title}</h3>
-                {/*// NOTE:  not all objects received have author property
-              // this needs to be handled properly to render
-            // Conditional Operator too render the book author */}
-                <h5>{book.authors ? book.authors[0] : book.publisher}</h5>
-                <div>
-                  <select
-                    value={book.shelf}
-                    onChange={e => onShelfChange(book, e)}
-                  >
-                    <option value="none" disabled="disabled">
-                      Move to...
-                    </option>
-                    <option value="currentlyReading">Currently Reading</option>
-                    <option value="wantToRead">Want to Read</option>
-                    <option value="read">Read</option>
-                    <option value="none">None</option>
-                  </select>
-                </div>
-              </li>
-            ))}
-          </ol>
-        ) : (
-          <div>
-            <h1>Type to search, try some other keywords</h1>
-          </div>
-        )}
+    return (<div className="search-books">
+      <div className="search-books-bar">
+        <div className="search-books-input-wrapper">
+          <form onSubmit={this.querySubmitHandler}>
+            <label>
+              <input type="text" value={query} placeholder="Search by titles or categories" onChange={event => this.queryUpdateHandler(event.target.value)}/>
+            </label>
+          </form>
         </div>
       </div>
-    );
+      <div className="search-books-results">
+        {
+          processedBooks.length > 0
+            ? (<ol className="books-grid">
+              {
+                processedBooks.map(book => (<li key={book.id}>
+                  <div className="book">
+                    <div className="book-top">
+                      <img className="book-cover" src={book.imageLinks.smallThumbnail} alt=""/>
+                      <div className="book-shelf-changer">
+                        <select value={book.shelf} onChange={e => onShelfChange(book, e)}>
+                          <option value="none" disabled="disabled">
+                            Move to...
+                          </option>
+                          <option value="currentlyReading">Currently Reading</option>
+                          <option value="wantToRead">Want to Read</option>
+                          <option value="read">Read</option>
+                          <option value="none">None</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div className="book-title">{book.title}</div>
+                    <div className="book-authors">{
+                        book.authors
+                          ? book.authors[0]
+                          : book.publisher
+                      }</div>
+                  </div>
+                </li>))
+              }
+            </ol>)
+            : (<div>
+              <div className="no-results">No results to show, try some other keywords</div>
+            </div>)
+        }
+      </div>
+    </div>);
   }
 }
 
