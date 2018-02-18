@@ -3,19 +3,29 @@ import { search } from "./utils/BooksAPI";
 
 class SearchBooks extends Component {
   state = {
-    searchResults: []
+    searchResults: [],
+    query : ""
   };
-  componentDidMount() {
-    // hardcoded search query string from SEARCH_TERMS.md
-    search("Finance").then(searchResults => {
+
+  querySubmitHandler = event => {
+    search(this.state.query).then(searchResults => {
       this.setState({ searchResults });
       console.dir(searchResults); // to analyse what is being returned in result
     });
+    event.preventDefault();
+  };
+  queryUpdateHandler = newQuery => {
+    this.setState({
+      query: newQuery.trim()
+    });
+  };
+  componentDidMount() {
+
   }
 
   render() {
     const { onShelfChange, mybooksList } = this.props;
-    const { searchResults } = this.state;
+    const { searchResults, query } = this.state;
 
     // mapping over searchResults to update shelf status
     const processedBooks = searchResults.map(book => {
@@ -26,8 +36,15 @@ class SearchBooks extends Component {
 
     return (
       <div>
-        <h2>Hello World Searches</h2>
+        <h2>Search:</h2>
+        <form onSubmit={this.querySubmitHandler}>
+        <label>
+          <input type="text" value={this.state.query}  onChange={event => this.queryUpdateHandler(event.target.value)} />
+        </label>
+        <input type="submit" value="Submit" />
+      </form>
         <div className="booksList">
+        { processedBooks.length >0 ? (  
           <ol>
             {processedBooks.map(book => (
               <li key={book.id}>
@@ -54,6 +71,11 @@ class SearchBooks extends Component {
               </li>
             ))}
           </ol>
+        ) : (
+          <div>
+            <h1>Type to search, try some other keywords</h1>
+          </div>
+        )}
         </div>
       </div>
     );
