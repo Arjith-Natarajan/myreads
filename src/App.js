@@ -12,36 +12,37 @@ class App extends Component {
     books: []
   };
 
-  // removeContact = contact => {
-  //   this.setState(state => ({
-  //     contacts: state.contacts.filter(c => c.id !== contact.id)
-  //   }));
-  //   ContactsAPI.remove(contact);
-  // };
-
-  shelfChangeHandler= (currentBook, event) => {
-    console.log("shelfupdatehandle clicked ", event.target.value);
+  shelfChangeHandler = (currentBook, event) => {
+    // update shelf attribute of current option based on event
     currentBook.shelf = event.target.value;
-    console.dir(currentBook);
-    let updatedState =this.state.books.filter( b =>  b.id !== currentBook.id);
+
+    // remove the already existing obj in state
+    let updatedState = this.state.books.filter(function(el) {
+      return el.id !== currentBook.id;
+    });
+    // add the updated obj -> state
+    updatedState.push(currentBook);
+    //update current State to reflect without API call
+    this.setState({books: updatedState});
+
+    // Make API call to persist the change in state
     BooksAPI.update(currentBook, event.target.value).then(bookData => {
-      console.dir(bookData);
-      this.fetchBooksList();
+      console.log('Updated book shelf status',bookData);  // obj returned with each of shelf values
     });
   };
 
-  fetchBooksList(){
+  fetchBooksList() {
     // makes the API call to fetch the list of books
     BooksAPI.getAll().then(books => {
       this.setState({books}); // and to update the State
-      console.dir(books); // to analyse the structure of the objs in array
+      // console.dir(books);  to analyse the structure of the objs in array
     });
   }
 
   // if both key and value of the object passed to setState is same,
   // then it can be replaced by a single var name
   componentDidMount() {
-      this.fetchBooksList(); // moved API call to a separate function
+    this.fetchBooksList(); // moved API call to a separate function
   }
 
   render() {
@@ -65,9 +66,8 @@ class App extends Component {
             color: "ForestGreen"
           }}/>Reeds!
       </h1>
-
-      <Route exact path="/" render={() => <ListShelves onShelfChange={this.shelfChangeHandler} books={this.state.books}/>}/>
-      <Route path="/search" render={({history}) => <SearchBooks mybooksList={this.state.books}/>}/>
+      <Route exact path="/" render={() => (<ListShelves onShelfChange={this.shelfChangeHandler} books={this.state.books}/>)}/>
+      <Route path="/search" render={({history}) => (<SearchBooks mybooksList={this.state.books}/>)}/>
     </div>);
   }
 }
