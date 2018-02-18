@@ -14,7 +14,7 @@ class ListShelves extends Component {
       <BookSections onShelfChange={onShelfChange} books={books.filter(b => b.shelf === "read")} shelfName="Read"/>
       <Link to="/search">
           <div className="open-search">
-            <a href="#">Add some Books</a>
+            <p>Add some Books</p>
           </div>
         </Link>
     </div></div>);

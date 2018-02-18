@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {Route, Link} from "react-router-dom";
+import {Route} from "react-router-dom";
 import "./App.css";
 import ListShelves from "./ListShelves";
 import SearchBooks from "./SearchBooks";
@@ -48,7 +48,7 @@ class App extends Component {
 
   render() {
     return (<div className="app">
-      <Route exact="exact" path="/" render={() => (<ListShelves onShelfChange={this.shelfChangeHandler} books={this.state.books}/>)}/>
+      <Route exact path="/" render={() => (<ListShelves onShelfChange={this.shelfChangeHandler} books={this.state.books}/>)}/>
       <Route path="/search" render={({history}) => (<SearchBooks onShelfChange={this.shelfChangeHandler} mybooksList={this.state.books}/>)}/>
     </div>);
   }

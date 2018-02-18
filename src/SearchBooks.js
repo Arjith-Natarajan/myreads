@@ -2,6 +2,7 @@ import React, {Component} from "react";
 import {search} from "./utils/BooksAPI";
 import {Link} from "react-router-dom";
 import BrandBar from "./BrandBar";
+import sortBy from "sort-by";
 import "./App.css";
 
 class SearchBooks extends Component {
@@ -33,11 +34,14 @@ class SearchBooks extends Component {
         : "none";
       return book;
     });
+    console.dir(processedBooks);
+    processedBooks.sort(sortBy("title"));
+    console.log('sorted', processedBooks);
 
     return (<div className="search-books">
       <div className="search-books-bar">
         <Link to="/">
-          <a className="close-search">Close</a>
+          <p className="close-search">Close</p>
         </Link>
         <div className="search-books-input-wrapper">
           <form onSubmit={this.querySubmitHandler}>
