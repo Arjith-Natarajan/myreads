@@ -67,7 +67,7 @@ class App extends Component {
           }}/>Reeds!
       </h1>
       <Route exact path="/" render={() => (<ListShelves onShelfChange={this.shelfChangeHandler} books={this.state.books}/>)}/>
-      <Route path="/search" render={({history}) => (<SearchBooks mybooksList={this.state.books}/>)}/>
+      <Route path="/search" render={({history}) => (<SearchBooks onShelfChange={this.shelfChangeHandler} mybooksList={this.state.books}/>)}/>
     </div>);
   }
 }
