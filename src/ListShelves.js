@@ -1,10 +1,8 @@
 import React, {Component} from "react";
 import {Link} from "react-router-dom";
-import * as BooksAPI from "./utils/BooksAPI";
+// import * as BooksAPI from "./utils/BooksAPI";
 
 class ListShelves extends Component {
-
-
 
   render() {
     const {onShelfChange, books} = this.props;
@@ -19,13 +17,11 @@ class ListShelves extends Component {
             books.map(book => (<li key={book.id}>
               <img src={book.imageLinks.smallThumbnail} alt=""/>
               <h3>{book.title}</h3>
-              {
-                /* <h5>{book.authors[0]}</h5>
-            // NOTE:  not all objects received have author property
+              {/*// NOTE:  not all objects received have author property
             // this needs to be handled properly to render
-            */
-                <h5>{book.shelf}</h5>
-              }
+          // Conditional Operator too render the book author */}
+              <h5>{book.authors ? book.authors[0] : book.publisher}</h5>
+
               <div>
                 <select value={book.shelf} onChange={(e) => onShelfChange(book, e)}>
                   <option value="none" disabled="disabled">
