@@ -19,9 +19,6 @@ class SearchBooks extends Component {
       query: newQuery.trim()
     });
   };
-  componentDidMount() {
-
-  }
 
   render() {
     const { onShelfChange, mybooksList } = this.props;
