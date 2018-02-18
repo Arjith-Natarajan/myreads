@@ -39,12 +39,12 @@ class SearchBooks extends Component {
         <h2>Search:</h2>
         <form onSubmit={this.querySubmitHandler}>
         <label>
-          <input type="text" value={this.state.query}  onChange={event => this.queryUpdateHandler(event.target.value)} />
+          <input type="text" value={query}  onChange={event => this.queryUpdateHandler(event.target.value)} />
         </label>
         <input type="submit" value="Submit" />
       </form>
         <div className="booksList">
-        { processedBooks.length >0 ? (  
+        { processedBooks.length >0 ? (
           <ol>
             {processedBooks.map(book => (
               <li key={book.id}>

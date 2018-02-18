@@ -1,17 +1,13 @@
 import React, {Component} from "react";
-import {Link} from "react-router-dom";
-// import * as BooksAPI from "./utils/BooksAPI";
 
 class ListShelves extends Component {
 
   render() {
-    const {onShelfChange, books} = this.props;
+    const {onShelfChange, books, shelfName} = this.props;
     // const { query } = this.state;
     return (<div>
-      <Link to="/search" className="darkGray">
-        <i className="fas fa-plus"/>
-      </Link>
-      <div className="booksList">
+      <h2>{shelfName}</h2>
+      { books.length === 0 ?(<h4>Loading ...</h4>):(<div className="booksList">
         <ol>
           {
             books.map(book => (<li key={book.id}>
@@ -36,7 +32,7 @@ class ListShelves extends Component {
             </li>))
           }
         </ol>
-      </div>
+      </div>)}
     </div>);
   }
 }
