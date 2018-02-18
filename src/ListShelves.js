@@ -3,14 +3,12 @@ import {Link} from "react-router-dom";
 import * as BooksAPI from "./utils/BooksAPI";
 
 class ListShelves extends Component {
-  shelfChangeHandler(currentBook, event) {
-    console.log("shelfupdatehandle clicked ", event.target.value);
-    console.dir(currentBook);
-    BooksAPI.update(currentBook, event.target.value).then(bookData => {
-      console.dir(bookData);
-    });
-  }
+
+
+
   render() {
+    const {onShelfChange, books} = this.props;
+    // const { query } = this.state;
     return (<div>
       <Link to="/search" className="darkGray">
         <i className="fas fa-plus"/>
@@ -18,7 +16,7 @@ class ListShelves extends Component {
       <div className="booksList">
         <ol>
           {
-            this.props.books.map(book => (<li key={book.id}>
+            books.map(book => (<li key={book.id}>
               <img src={book.imageLinks.smallThumbnail} alt=""/>
               <h3>{book.title}</h3>
               {
@@ -26,11 +24,10 @@ class ListShelves extends Component {
             // NOTE:  not all objects received have author property
             // this needs to be handled properly to render
             */
-
                 <h5>{book.shelf}</h5>
               }
               <div>
-                <select value={book.shelf} onChange={e => this.shelfChangeHandler(book, e)}>
+                <select value={book.shelf} onChange={(e) => onShelfChange(book, e)}>
                   <option value="none" disabled="disabled">
                     Move to...
                   </option>
@@ -40,10 +37,6 @@ class ListShelves extends Component {
                   <option value="none">None</option>
                 </select>
               </div>
-              {/* <button onClick={() => this.shelfChangeHandler(book)}>
-                Shelf Status
-              </button> */
-              }
             </li>))
           }
         </ol>

@@ -12,14 +12,36 @@ class App extends Component {
     books: []
   };
 
+  // removeContact = contact => {
+  //   this.setState(state => ({
+  //     contacts: state.contacts.filter(c => c.id !== contact.id)
+  //   }));
+  //   ContactsAPI.remove(contact);
+  // };
+
+  shelfChangeHandler= (currentBook, event) => {
+    console.log("shelfupdatehandle clicked ", event.target.value);
+    currentBook.shelf = event.target.value;
+    console.dir(currentBook);
+    let updatedState =this.state.books.filter( b =>  b.id !== currentBook.id);
+    BooksAPI.update(currentBook, event.target.value).then(bookData => {
+      console.dir(bookData);
+      this.fetchBooksList();
+    });
+  };
+
+  fetchBooksList(){
+    // makes the API call to fetch the list of books
+    BooksAPI.getAll().then(books => {
+      this.setState({books}); // and to update the State
+      console.dir(books); // to analyse the structure of the objs in array
+    });
+  }
+
   // if both key and value of the object passed to setState is same,
   // then it can be replaced by a single var name
   componentDidMount() {
-    // makes the API call to fetch the list of books
-    BooksAPI.getAll().then(books => {
-      this.setState({books});
-      console.dir(books); // to analyse the structure of the objs in array
-    });
+      this.fetchBooksList(); // moved API call to a separate function
   }
 
   render() {
@@ -44,7 +66,7 @@ class App extends Component {
           }}/>Reeds!
       </h1>
 
-      <Route exact path="/" render={() => <ListShelves books={this.state.books}/>}/>
+      <Route exact path="/" render={() => <ListShelves onShelfChange={this.shelfChangeHandler} books={this.state.books}/>}/>
       <Route path="/search" render={({history}) => <SearchBooks mybooksList={this.state.books}/>}/>
     </div>);
   }
