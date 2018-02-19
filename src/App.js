@@ -1,5 +1,5 @@
-import React, {Component} from "react";
-import {Route} from "react-router-dom";
+import React, { Component } from "react";
+import { Route } from "react-router-dom";
 import "./App.css";
 import ListShelves from "./ListShelves";
 import SearchBooks from "./SearchBooks";
@@ -12,7 +12,8 @@ class App extends Component {
     books: []
   };
 
-  filterBookByShelf = (books, shelfName) => books.filter(b => b.shelf === shelfName);
+  filterBookByShelf = (books, shelfName) =>
+    books.filter(b => b.shelf === shelfName);
   shelfChangeHandler = (currentBook, event) => {
     // update shelf attribute of current option based on event
     currentBook.shelf = event.target.value;
@@ -25,7 +26,7 @@ class App extends Component {
     updatedState.push(currentBook);
 
     //update current State to reflect without API call
-    this.setState({books: updatedState});
+    this.setState({ books: updatedState });
 
     // Make API call to persist the change in state
     BooksAPI.update(currentBook, event.target.value).then(bookData => {
@@ -36,7 +37,7 @@ class App extends Component {
   fetchBooksList() {
     // makes the API call to fetch the list of books
     BooksAPI.getAll().then(books => {
-      this.setState({books}); // and to update the State
+      this.setState({ books }); // and to update the State
     });
   }
 
@@ -47,10 +48,29 @@ class App extends Component {
   }
 
   render() {
-    return (<div className="app">
-      <Route exact path="/" render={() => (<ListShelves onShelfChange={this.shelfChangeHandler} books={this.state.books}/>)}/>
-      <Route path="/search" render={({history}) => (<SearchBooks onShelfChange={this.shelfChangeHandler} mybooksList={this.state.books}/>)}/>
-    </div>);
+    return (
+      <div className="app">
+        <Route
+          exact
+          path="/"
+          render={() => (
+            <ListShelves
+              onShelfChange={this.shelfChangeHandler}
+              books={this.state.books}
+            />
+          )}
+        />
+        <Route
+          path="/search"
+          render={({ history }) => (
+            <SearchBooks
+              onShelfChange={this.shelfChangeHandler}
+              mybooksList={this.state.books}
+            />
+          )}
+        />
+      </div>
+    );
   }
 }
 
