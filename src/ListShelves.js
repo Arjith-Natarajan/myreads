@@ -46,42 +46,48 @@ const BookSections = ({ onShelfChange, books, shelfName }) => (
     ) : (
       <div className="bookshelf-books">
         <ol className="books-grid">
-          {books.map(book => (
-            <li key={book.id}>
-              <div className="book">
-                <div className="book-top">
-                  <img
-                    className="book-cover"
-                    src={book.imageLinks.smallThumbnail}
-                    alt=""
-                  />
-                  <div className="book-shelf-changer">
-                    <select
-                      value={book.shelf}
-                      onChange={e => onShelfChange(book, e)}
-                    >
-                      <option value="none" disabled="disabled">
-                        Move to...
-                      </option>
-                      <option value="currentlyReading">
-                        Currently Reading
-                      </option>
-                      <option value="wantToRead">Want to Read</option>
-                      <option value="read">Read</option>
-                      <option value="none">None</option>
-                    </select>
+          {books.map(book => {
+            const coverImgURL = book.imageLinks
+              ? book.imageLinks.smallThumbnail
+              : "http://via.placeholder.com/128x190";
+              
+            return (
+              <li key={book.id}>
+                <div className="book">
+                  <div className="book-top">
+                    <img
+                      className="book-cover"
+                      src={coverImgURL}
+                      alt="Book Cover img"
+                    />
+                    <div className="book-shelf-changer">
+                      <select
+                        value={book.shelf}
+                        onChange={e => onShelfChange(book, e)}
+                      >
+                        <option value="none" disabled="disabled">
+                          Move to...
+                        </option>
+                        <option value="currentlyReading">
+                          Currently Reading
+                        </option>
+                        <option value="wantToRead">Want to Read</option>
+                        <option value="read">Read</option>
+                        <option value="none">None</option>
+                      </select>
+                    </div>
                   </div>
-                </div>
-                <div className="book-title">{book.title}</div>
-                {/*// NOTE:  not all objects received have author property
+                  <div className="book-title">{book.title}</div>
+                  {/*// NOTE:  not all objects received have author property
         // this needs to be handled properly to render
       // Conditional Operator too render the book author */}
-                <div className="book-authors">
-                  {book.authors ? book.authors[0] : book.publisher}
+                  <div className="book-authors">
+                    {book.authors ? book.authors[0] : book.publisher}
+                  </div>
                 </div>
-              </div>
-            </li>
-          ))}
+              </li>
+            );
+          })}
         </ol>
       </div>
     )}
