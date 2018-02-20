@@ -3,89 +3,31 @@ import { search } from "./utils/BooksAPI";
 import { Link } from "react-router-dom";
 import BrandBar from "./BrandBar";
 import sortBy from "sort-by";
-import Autosuggest from "react-autosuggest";
-import searchTerms from "./SearchTerms";
-
-// Teach Autosuggest how to calculate suggestions for any given input value.
-const getSuggestions = value => {
-  const inputValue = value.trim().toLowerCase();
-  const inputLength = inputValue.length;
-
-  return inputLength === 0
-    ? []
-    : searchTerms.filter(
-        term => term.name.toLowerCase().slice(0, inputLength) === inputValue
-      );
-};
-
-// how to calculate the
-// input value for every given suggestion.
-const getSuggestionValue = suggestion => suggestion.name;
-
-// Use your imagination to render suggestions.
-const renderSuggestion = suggestion => (
-  <div
-    className="auto-suggest-item"
-    style={{ color: "Tomato", listDecoration: "none" }}
-  >
-    {suggestion.name}
-  </div>
-);
 
 class SearchBooks extends Component {
   state = {
     searchResults: [],
-    query: "",
-    suggestions: []
+    query: ""
   };
 
-  onSuggestionsFetchRequested = ({ value }) => {
-    this.setState({
-      suggestions: getSuggestions(value)
-    });
-  };
-  // Autosuggest will call this function every time you need to clear suggestions.
-  onSuggestionsClearRequested = () => {
-    this.setState({
-      suggestions: []
-    });
-  };
-
-  onSuggestionSelected = (
-    event,
-    { suggestion, suggestionValue, suggestionIndex, sectionIndex, method }
-  ) => {
-    this.setState({
-      query: suggestionValue
-    });
-    search(suggestionValue).then(searchResults => {
-      this.setState({ searchResults });
-      console.dir(searchResults); // to analyse what is being returned in result
-    });
-  };
-
-  querySubmitHandler = event => {
-    search(this.state.query).then(searchResults => {
-      this.setState({ searchResults });
-      console.dir(searchResults); // to analyse what is being returned in result
-    });
-    event.preventDefault();
-  };
   queryUpdateHandler = newQuery => {
-    console.log(newQuery);
     this.setState({ query: newQuery });
+    if (newQuery.length === 0) {
+      this.setState({ searchResults: [] });
+    } else {
+      search(newQuery)
+        .then(searchResponse => {
+          const items = searchResponse.error ? [] : searchResponse;
+          this.setState({ searchResults: items });
+        })
+        .catch(err => {
+          console.log("err occured", err);
+        });
+    }
   };
-
   render() {
     const { onShelfChange, mybooksList } = this.props;
-    const { searchResults, query, suggestions } = this.state;
-
-    // Autosuggest will pass through all these props to the input.
-    const inputProps = {
-      placeholder: "Search by titles or categories",
-      value: query,
-      onChange: event => this.queryUpdateHandler(event.target.value)
-    };
+    const { searchResults, query } = this.state;
 
     // mapping over searchResults to update shelf status
     const processedBooks = searchResults.map(book => {
@@ -102,20 +44,12 @@ class SearchBooks extends Component {
             <p className="close-search">Close</p>
           </Link>
           <div className="search-books-input-wrapper">
-            <form onSubmit={this.querySubmitHandler}>
-              <label>
-                {/* <input type="text" value={query} placeholder="Search by titles or categories" onChange={event => this.queryUpdateHandler(event.target.value)}/> */}
-                <Autosuggest
-                  suggestions={suggestions}
-                  onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
-                  onSuggestionsClearRequested={this.onSuggestionsClearRequested}
-                  onSuggestionSelected={this.onSuggestionSelected}
-                  getSuggestionValue={getSuggestionValue}
-                  renderSuggestion={renderSuggestion}
-                  inputProps={inputProps}
-                />
-              </label>
-            </form>
+            <input
+              type="text"
+              value={query}
+              placeholder="Search by titles or categories"
+              onChange={event => this.queryUpdateHandler(event.target.value)}
+            />
           </div>
         </div>
         <div className="search-books-results">
@@ -130,11 +64,7 @@ class SearchBooks extends Component {
                   <li key={book.id}>
                     <div className="book">
                       <div className="book-top">
-                        <img
-                          className="book-cover"
-                          src={coverImgURL}
-                          alt=""
-                        />
+                        <img className="book-cover" src={coverImgURL} alt="" />
                         <div className="book-shelf-changer">
                           <select
                             value={book.shelf}
