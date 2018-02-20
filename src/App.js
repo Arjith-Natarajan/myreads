@@ -12,40 +12,40 @@ class App extends Component {
     books: []
   };
 
-  filterBookByShelf = (books, shelfName) =>
-    books.filter(b => b.shelf === shelfName);
-  shelfChangeHandler = (currentBook, event) => {
-    // update shelf attribute of current option based on event
-    currentBook.shelf = event.target.value;
-
-    // remove the already existing obj in state
-    let updatedState = this.state.books.filter(function(el) {
-      return el.id !== currentBook.id;
-    });
-    // add the updated obj -> state
-    updatedState.push(currentBook);
-
-    //update current State to reflect without API call
-    this.setState({ books: updatedState });
-
-    // Make API call to persist the change in state
-    BooksAPI.update(currentBook, event.target.value).then(bookData => {
-      console.log("Updated book shelf status", bookData); // obj returned with each of shelf values
-    });
-  };
-
-  fetchBooksList() {
-    // makes the API call to fetch the list of books
-    BooksAPI.getAll().then(books => {
-      this.setState({ books }); // and to update the State
-    });
-  }
-
-  // if both key and value of the object passed to setState is same,
-  // then it can be replaced by a single var name
   componentDidMount() {
     this.fetchBooksList(); // moved API call to a separate function
   }
+
+
+  filterBookByShelf = (books, shelfName) =>
+    books.filter(b => b.shelf === shelfName);
+
+  shelfChangeHandler = (currentBook, event) => {
+    currentBook.shelf = event.target.value;
+    const rollbackState = this.state.books;
+    const updatedState = this.state.books.filter(function(el) {
+      return el.id !== currentBook.id;
+    });
+    updatedState.push(currentBook);
+    this.setState({ books: updatedState });
+
+    BooksAPI.update(currentBook, event.target.value)
+      .then(bookData => {
+        console.log("Updated book shelf status", bookData); // obj returned with each of shelf values
+      })
+      .catch(err => {
+        console.log(err);
+        console.log("State not updated - rolling back");
+        this.setState({ books: rollbackState });
+      });
+  };
+
+  fetchBooksList() {
+    BooksAPI.getAll().then(books => {
+      this.setState({ books }); 
+    });
+  }
+
 
   render() {
     return (
