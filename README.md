@@ -1,5 +1,5 @@
-[<img align="right" src="https://lh3.googleusercontent.com/PE3VSM8Z3yVnGvLCMCKt7xtA0jfzBQn4sw1druqS_AkipOzQV5DAzSs6bABqRKr6eVllCgCoUQLcZRoW9C-xeC6tPhgGDLc60v1TRaEM7qpOR3ArWnpSjK4IW3IBSyrnO6u-rckUm1s8IVE91qSz9J2jiF_TqVXkSI_zUFUxjVywHJLNiTRNkIvkKEgIt0W2XdzxXyIexbV61_zGDvaYh9P_gqvIdJt4ZDDcvCqPqgG_mTGa4rsWhNhpztDi158pbreuLJjkHqwfVRJitJJXppoPPBCwgFR1mHNFo0EN8A3gyZTvfmY_xjNfJPo4vN_sTqKHCMTgUz98iLbs9TWaa55szZu3AKVW_S-OFm17Xo9HoqhS8CZJ1RIL8vZ96FcwSYTIe_y3fMve9JZqXHgSLZbk-8eIHQgWgibG11r4HeIfYYOqDkit4k8QQDVNjiLWHtPDLciAXjLdUkoXQcKmaQgtC1ZpmZu8vfihjjFL9m5_t9QYbLB8Lg-A494uNpVAVg_X7pi2n621LdWXNhdf_KvxqUsmD9Q5SGp_a41AGGuOVSA7R0fECo0vLbnIt8p4zKvYQsU-AAfgmZcUXHkZJUjP1UK3hDw2jZxwZSU=w520-h363-no" width="160px" alt="Good morning Reeds!">]()
-=========================
+[<img align="right" src="https://lh3.googleusercontent.com/PE3VSM8Z3yVnGvLCMCKt7xtA0jfzBQn4sw1druqS_AkipOzQV5DAzSs6bABqRKr6eVllCgCoUQLcZRoW9C-xeC6tPhgGDLc60v1TRaEM7qpOR3ArWnpSjK4IW3IBSyrnO6u-rckUm1s8IVE91qSz9J2jiF_TqVXkSI_zUFUxjVywHJLNiTRNkIvkKEgIt0W2XdzxXyIexbV61_zGDvaYh9P_gqvIdJt4ZDDcvCqPqgG_mTGa4rsWhNhpztDi158pbreuLJjkHqwfVRJitJJXppoPPBCwgFR1mHNFo0EN8A3gyZTvfmY_xjNfJPo4vN_sTqKHCMTgUz98iLbs9TWaa55szZu3AKVW_S-OFm17Xo9HoqhS8CZJ1RIL8vZ96FcwSYTIe_y3fMve9JZqXHgSLZbk-8eIHQgWgibG11r4HeIfYYOqDkit4k8QQDVNjiLWHtPDLciAXjLdUkoXQcKmaQgtC1ZpmZu8vfihjjFL9m5_t9QYbLB8Lg-A494uNpVAVg_X7pi2n621LdWXNhdf_KvxqUsmD9Q5SGp_a41AGGuOVSA7R0fECo0vLbnIt8p4zKvYQsU-AAfgmZcUXHkZJUjP1UK3hDw2jZxwZSU=w520-h363-no" width="260px" alt="Good morning Reeds!">]()
+
 
 # myreads
 MyReads is a simple bookshelf application (something like a [goodreads](https://www.goodreads.com/) clone) built with ReactJs as a part of [React Nanodegree by Udacity](https://in.udacity.com/course/react-nanodegree--nd019).  Having its own styles and code, this particular project is my version of myreads, and called as _**GOOD MORNING REEDS!**_. The project focuses on using fundamentals of React and other technologies to create a full blown application.
@@ -44,7 +44,7 @@ Fires up the application server at port 3000
 - Visit `http://localhost:3000` in your favourite browser to play around with the application :confetti_ball:
 
 
-## Built With
+## :nut_and_bolt: Built With
 
 
 * [create-react-app](https://github.com/facebook/create-react-app) - bootstrapped the project using this starter
@@ -57,10 +57,58 @@ Fires up the application server at port 3000
 * [Atom](https://atom.io/) - my fav text editor along with its minion army (plugins! :p)
 
 
-## Brags About :see_no_evil:
-- Extensive comments placed appropriately for explanation
-- Use of Stateless Components wherever possible
-- has tried to adhere to udacity guidelines for HTML, CSS, JS
+## Highlights
+-  Attempted for **maximum code reuse** by structuring code and data flow
+
+  **Issue : ** format for displaying shelves is same except with diff of shelf names.
+
+  Instead of having a single component displaying all three shelves at once as a monolithic `render()` like this:
+
+  ```
+  render(){
+    return(<div>
+      <div>
+        <h2>Currently Reading</h2>
+        <div>
+          <img src="" alt="">
+          <h3 class="book-title"></h3>
+          <h4 class="book-authors"></h4>
+        </div>
+        ...
+      </div>
+      <div>
+        <h2>Want To Read</h2>
+        ...
+      </div>
+      <div>
+        <h2>Read</h2>
+        ...
+      </div>
+      </div>)
+  }
+  ```
+  tried to decompose into set of re-usable components, by utilising a `BookSections` Component as follows:
+  ```
+  return(
+    <div className="list-books">
+        <BookSections
+          books={books.currentlyReading}
+          shelfName="Currently Reading"
+        />
+        <BookSections
+          books={books.wantToRead}
+          shelfName="Want to Read"
+        />
+        <BookSections
+          books={books.read}
+          shelfName="Read"
+        />
+
+    </div>
+    )
+  ```
+  where `BookSections` is a stateless component, thus achieveing improved readablity and much cleaner code.
+- Has tried to adhere to udacity guidelines for HTML, CSS, JS
 - use of :heart: version control from beginning, with commits done iteratively
 
 
