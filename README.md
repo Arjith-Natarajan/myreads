@@ -10,7 +10,7 @@ Repo Location : https://github.com/Arjith-Natarajan/myreads
 
 ## Demo
 
-_Coming Soon..._
+Here is a working live demo :  https://goodmorning-reeds.herokuapp.com/
 
 ## Getting Started
 
@@ -57,7 +57,7 @@ Fires up the application server at port 3000
 * [Atom](https://atom.io/) - my fav text editor along with its minion army (plugins! :p)
 
 
-## Highlights
+## :star: Highlights
 -  Attempted for **maximum code reuse** by structuring code and data flow
 
   **Issue : ** format for displaying shelves is same except with diff of shelf names.
@@ -123,7 +123,8 @@ Fires up the application server at port 3000
 
 
 ## :white_check_mark: TODOS/ Ideas
-- [ ] task: Deploy application to Heroku
+- [x] task: Deploy application to Heroku
+- [ ] task: Include demo gif in README
 - [ ] feat: add rating to books
 - [ ] feat: show some Stats
 - [ ] feat: put up a **bookDetail View**
