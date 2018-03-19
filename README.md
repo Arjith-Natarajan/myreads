@@ -1,4 +1,4 @@
-[<img align="right" src="https://lh3.googleusercontent.com/PE3VSM8Z3yVnGvLCMCKt7xtA0jfzBQn4sw1druqS_AkipOzQV5DAzSs6bABqRKr6eVllCgCoUQLcZRoW9C-xeC6tPhgGDLc60v1TRaEM7qpOR3ArWnpSjK4IW3IBSyrnO6u-rckUm1s8IVE91qSz9J2jiF_TqVXkSI_zUFUxjVywHJLNiTRNkIvkKEgIt0W2XdzxXyIexbV61_zGDvaYh9P_gqvIdJt4ZDDcvCqPqgG_mTGa4rsWhNhpztDi158pbreuLJjkHqwfVRJitJJXppoPPBCwgFR1mHNFo0EN8A3gyZTvfmY_xjNfJPo4vN_sTqKHCMTgUz98iLbs9TWaa55szZu3AKVW_S-OFm17Xo9HoqhS8CZJ1RIL8vZ96FcwSYTIe_y3fMve9JZqXHgSLZbk-8eIHQgWgibG11r4HeIfYYOqDkit4k8QQDVNjiLWHtPDLciAXjLdUkoXQcKmaQgtC1ZpmZu8vfihjjFL9m5_t9QYbLB8Lg-A494uNpVAVg_X7pi2n621LdWXNhdf_KvxqUsmD9Q5SGp_a41AGGuOVSA7R0fECo0vLbnIt8p4zKvYQsU-AAfgmZcUXHkZJUjP1UK3hDw2jZxwZSU=w520-h363-no" width="260px" alt="Good morning Reeds!">]()
+[<img align="right" src="./public/images/logo.png">]()
 
 
 # myreads

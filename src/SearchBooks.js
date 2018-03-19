@@ -19,9 +19,6 @@ class SearchBooks extends Component {
         .then(searchResponse => {
           const items = searchResponse.error ? [] : searchResponse;
           this.setState({ searchResults: items });
-        })
-        .catch(err => {
-          console.log("err occured", err);
         });
     }
   };
@@ -84,7 +81,7 @@ class SearchBooks extends Component {
                       </div>
                       <div className="book-title">{book.title}</div>
                       <div className="book-authors">
-                        {book.authors ? book.authors[0] : book.publisher}
+                        {book.authors ? book.authors.join(', ') : book.publisher}
                       </div>
                     </div>
                   </li>

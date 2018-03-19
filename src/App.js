@@ -30,19 +30,15 @@ class App extends Component {
     this.setState({ books: updatedState });
 
     BooksAPI.update(currentBook, event.target.value)
-      .then(bookData => {
-        console.log("Updated book shelf status", bookData); // obj returned with each of shelf values
-      })
+      .then(bookData => {})
       .catch(err => {
-        console.log(err);
-        console.log("State not updated - rolling back");
         this.setState({ books: rollbackState });
       });
   };
 
   fetchBooksList() {
     BooksAPI.getAll().then(books => {
-      this.setState({ books }); 
+      this.setState({ books });
     });
   }
 
