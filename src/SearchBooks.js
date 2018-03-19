@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { search } from "./utils/BooksAPI";
 import { Link } from "react-router-dom";
 import BrandBar from "./BrandBar";
+import BookDisplay from "./BookDisplay";
 import sortBy from "sort-by";
 
 class SearchBooks extends Component {
@@ -15,11 +16,10 @@ class SearchBooks extends Component {
     if (newQuery.length === 0) {
       this.setState({ searchResults: [] });
     } else {
-      search(newQuery)
-        .then(searchResponse => {
-          const items = searchResponse.error ? [] : searchResponse;
-          this.setState({ searchResults: items });
-        });
+      search(newQuery).then(searchResponse => {
+        const items = searchResponse.error ? [] : searchResponse;
+        this.setState({ searchResults: items });
+      });
     }
   };
   render() {
@@ -52,41 +52,13 @@ class SearchBooks extends Component {
         <div className="search-books-results">
           {processedBooks.length > 0 ? (
             <ol className="books-grid">
-              {processedBooks.map(book => {
-                const coverImgURL = book.imageLinks
-                  ? book.imageLinks.smallThumbnail
-                  : "http://via.placeholder.com/128x190";
-
-                return (
-                  <li key={book.id}>
-                    <div className="book">
-                      <div className="book-top">
-                        <img className="book-cover" src={coverImgURL} alt="" />
-                        <div className="book-shelf-changer">
-                          <select
-                            value={book.shelf}
-                            onChange={e => onShelfChange(book, e)}
-                          >
-                            <option value="none" disabled="disabled">
-                              Move to...
-                            </option>
-                            <option value="currentlyReading">
-                              Currently Reading
-                            </option>
-                            <option value="wantToRead">Want to Read</option>
-                            <option value="read">Read</option>
-                            <option value="none">None</option>
-                          </select>
-                        </div>
-                      </div>
-                      <div className="book-title">{book.title}</div>
-                      <div className="book-authors">
-                        {book.authors ? book.authors.join(', ') : book.publisher}
-                      </div>
-                    </div>
-                  </li>
-                );
-              })}
+              {processedBooks.map(book => (
+                <BookDisplay
+                  key={book.id}
+                  book={book}
+                  onShelfChange={onShelfChange}
+                />
+              ))}
             </ol>
           ) : (
             <div>

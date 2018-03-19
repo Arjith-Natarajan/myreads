@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import BrandBar from "./BrandBar";
+import BookDisplay from "./BookDisplay";
 
 class ListShelves extends Component {
   render() {
@@ -39,55 +40,28 @@ class ListShelves extends Component {
 const BookSections = ({ onShelfChange, books, shelfName }) => (
   <div className="bookshelf">
     <h2 className="bookshelf-title">
-      {shelfName} - <span style={{ color: "Tomato" }}>({books.length})</span>
+      {shelfName}
+      -
+      <span
+        style={{
+          color: "Tomato"
+        }}
+      >
+        ({books.length})
+      </span>
     </h2>
     {books.length === 0 ? (
       <div className="no-results">Nothing to show</div>
     ) : (
       <div className="bookshelf-books">
         <ol className="books-grid">
-          {books.map(book => {
-            const coverImgURL = book.imageLinks
-              ? book.imageLinks.smallThumbnail
-              : "http://via.placeholder.com/128x190";
-              
-            return (
-              <li key={book.id}>
-                <div className="book">
-                  <div className="book-top">
-                    <img
-                      className="book-cover"
-                      src={coverImgURL}
-                      alt="Book Cover img"
-                    />
-                    <div className="book-shelf-changer">
-                      <select
-                        value={book.shelf}
-                        onChange={e => onShelfChange(book, e)}
-                      >
-                        <option value="none" disabled="disabled">
-                          Move to...
-                        </option>
-                        <option value="currentlyReading">
-                          Currently Reading
-                        </option>
-                        <option value="wantToRead">Want to Read</option>
-                        <option value="read">Read</option>
-                        <option value="none">None</option>
-                      </select>
-                    </div>
-                  </div>
-                  <div className="book-title">{book.title}</div>
-                  {/*// NOTE:  not all objects received have author property
-        // this needs to be handled properly to render
-      // Conditional Operator too render the book author */}
-                  <div className="book-authors">
-                    {book.authors ? book.authors[0] : book.publisher}
-                  </div>
-                </div>
-              </li>
-            );
-          })}
+          {books.map(book => (
+            <BookDisplay
+              key={book.id}
+              book={book}
+              onShelfChange={onShelfChange}
+            />
+          ))}
         </ol>
       </div>
     )}

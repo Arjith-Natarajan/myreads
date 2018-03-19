@@ -125,6 +125,7 @@ Fires up the application server at port 3000
 ## :white_check_mark: TODOS/ Ideas
 - [x] task: Deploy application to Heroku
 - [ ] task: Include demo gif in README
+- [ ] feat: Add debounce to search 
 - [ ] feat: add rating to books
 - [ ] feat: show some Stats
 - [ ] feat: put up a **bookDetail View**
